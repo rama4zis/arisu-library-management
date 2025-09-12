@@ -13,7 +13,7 @@ Request Body:
 ```json
 {
   "name": "Author Name",
-  "bio": "Author Bio",
+  "biography": "Author Bio",
   "dob": "1970-01-01",
   "country": "Country", // Optional
   "website": "https://authorwebsite.com" // Optional
@@ -28,7 +28,7 @@ Response success:
   "data": {
     "id": "1",
     "name": "Author Name",
-    "bio": "Author Bio",
+    "biography": "Author Bio",
     "dob": "1970-01-01",
     "country": "Country",
     "website": "https://authorwebsite.com"
@@ -56,7 +56,7 @@ Request Body:
 ```json
 {
   "name": "Author Name",
-  "bio": "Author Bio",
+  "biography": "Author Bio",
   "dob": "1970-01-01",
   "country": "Country", // Optional
   "website": "https://authorwebsite.com" // Optional
@@ -71,7 +71,7 @@ Response success:
   "data": {
     "id": "1",
     "name": "Author Name",
-    "bio": "Author Bio",
+    "biography": "Author Bio",
     "dob": "1970-01-01",
     "country": "Country",
     "website": "https://authorwebsite.com"

@@ -1,6 +1,5 @@
 package com.arisu_library.arisu_library_management.entity;
 import java.time.LocalDate;
-import java.util.Set;
 
 import com.arisu_library.arisu_library_management.model.enums.BookStatus;
 import jakarta.persistence.Column;
@@ -13,8 +12,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -34,6 +31,7 @@ import lombok.experimental.SuperBuilder;
     @Index(name = "idx_book_modified_date", columnList = "modified_date"),
     @Index(name = "idx_book_title", columnList = "title"),
     @Index(name = "idx_book_author_id", columnList = "author_id"),
+    @Index(name = "idx_book_category_id", columnList = "category_id"),
     @Index(name = "idx_book_status", columnList = "status")
 })
 public class Book extends BaseEntity{
@@ -53,13 +51,9 @@ public class Book extends BaseEntity{
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
-    @ManyToMany
-    @JoinTable(
-        name = "book_category",
-        joinColumns = @JoinColumn(name = "book_id"),
-        inverseJoinColumns = @JoinColumn(name = "category_id")
-    )
-    private Set<Category> category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     private Integer pages;
 

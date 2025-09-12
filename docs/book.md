@@ -16,13 +16,7 @@ Request Body:
   "summary": "Book Summary",
   "coverImage": "Path or URL to cover image", // Optional
   "authorId": "1",
-  "category": [
-    {
-      "id": "1", // or you can use name
-      "name": "Fiction" // or you can use id
-    },
-    { "id": "2" }
-  ],
+  "category": "Fiction", // or you can use id
   "pages": 300,
   "language": "English",
   "publishedDate": "2023-10-01",
@@ -40,21 +34,18 @@ Response success:
     "title": "Book Title",
     "summary": "Book Summary",
     "coverImage": "Path or URL to cover image",
-    "authorId": "1",
-    "category": [
-      {
-        "id": "1",
-        "name": "Fiction"
-      },
-      {
-        "id": "2",
-        "name": "Science"
-      }
-    ],
+    "author": {
+      "id": "1",
+      "name": "Author Name"
+    },
+    "category": {
+      "id": "1",
+      "name": "Fiction"
+    },
     "pages": 300,
     "language": "English",
     "publishedDate": "2023-10-01",
-    "status": "AVALIABLE"
+    "status": "AVAILABLE"
   }
 }
 ```
@@ -84,14 +75,7 @@ Request Body:
   "summary": "New Book Summary", // Put if only you want to update
   "coverImage": "Path or URL to cover image",
   "authorId": "1", // Put if only you want to update
-  "category": [
-    // Put if only you want to update
-    {
-      "id": "1", // or you can use name
-      "name": "Fiction" // or you can use id
-    },
-    { "id": "2" }
-  ],
+  "category": "Fiction", // or you can use id - Put if only you want to update
   "pages": 350, // Put if only you want to update
   "language": "English", // Put if only you want to update
   "publishedDate": "2023-10-01", // Put if only you want to update
@@ -109,14 +93,14 @@ Response success:
     "title": "New Book Title",
     "summary": "New Book Summary",
     "coverImage": "Path or URL to cover image",
-    "authorId": "1",
-    "category": [
-      {
-        "id": "1",
-        "name": "Fiction"
-      },
-      { "id": "2", "name": "Science" }
-    ],
+    "author": {
+      "id": "1",
+      "name": "Author Name"
+    },
+    "category": {
+      "id": "1", // or you can use name
+      "name": "Fiction" // or you can use id
+    },
     "pages": 350,
     "language": "English",
     "publishedDate": "2023-10-01",
@@ -148,17 +132,14 @@ Response success:
     "title": "Book Title",
     "summary": "Book Summary",
     "coverImage": "Path or URL to cover image",
-    "authorId": "1",
-    "category": [
-      {
-        "id": "1",
-        "name": "Fiction"
-      },
-      {
-        "id": "2",
-        "name": "Science"
-      }
-    ],
+    "author": {
+      "id": "1",
+      "name": "Author Name"
+    },
+    "category": {
+      "id": "1", // or you can use name
+      "name": "Fiction" // or you can use id
+    },
     "pages": 300,
     "language": "English",
     "publishedDate": "2023-10-01",
@@ -197,17 +178,14 @@ Response success:
       "title": "Book Title",
       "summary": "Book Summary",
       "coverImage": "Path or URL to cover image",
-      "authorId": "1",
-      "category": [
-        {
-          "id": "1",
-          "name": "Fiction"
-        },
-        {
-          "id": "2",
-          "name": "Science"
-        }
-      ],
+      "author": {
+        "id": "1",
+        "name": "Author Name"
+      },
+      "category": {
+        "id": "1", // or you can use name
+        "name": "Fiction" // or you can use id
+      },
       "pages": 300,
       "language": "English",
       "publishedDate": "2023-10-01",
@@ -218,13 +196,14 @@ Response success:
       "title": "Another Book Title",
       "summary": "Another Book Summary",
       "coverImage": "Path or URL to cover image",
-      "authorId": "2",
-      "category": [
-        {
-          "id": "3",
-          "name": "History"
-        }
-      ],
+      "author": {
+        "id": "1",
+        "name": "Author Name"
+      },
+      "category": {
+        "id": "1", // or you can use name
+        "name": "Fiction" // or you can use id
+      },
       "pages": 250,
       "language": "English",
       "publishedDate": "2022-05-15",

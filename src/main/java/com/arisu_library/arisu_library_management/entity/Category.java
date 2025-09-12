@@ -7,7 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Index;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,6 +36,6 @@ public class Category extends BaseEntity {
 
     private String description;
 
-    @ManyToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category")
     private Set<Book> books;
 }
