@@ -31,3 +31,8 @@ build/
 
 ### VS Code ###
 .vscode/
+
+logs/
+
+# Dev Settings
+**/development/application.yml
