@@ -13,9 +13,9 @@ Request Body:
 ```json
 {
   "title": "Book Title",
-  "description": "Book Description",
+  "summary": "Book Summary",
+  "coverImage": "Path or URL to cover image", // Optional
   "authorId": "1",
-  "publisherId": "1",
   "category": [
     {
       "id": "1", // or you can use name
@@ -26,7 +26,7 @@ Request Body:
   "pages": 300,
   "language": "English",
   "publishedDate": "2023-10-01",
-  "status": "AVALIABLE" // AVALIABLE, BORROWED, RESERVED
+  "status": "AVAILABLE" // AVAILABLE, BORROWED, LOST, DAMAGED
 }
 ```
 
@@ -38,9 +38,9 @@ Response success:
   "data": {
     "id": "1",
     "title": "Book Title",
-    "description": "Book Description",
+    "summary": "Book Summary",
+    "coverImage": "Path or URL to cover image",
     "authorId": "1",
-    "publisherId": "1",
     "category": [
       {
         "id": "1",
@@ -81,9 +81,9 @@ Request Body:
 ```json
 {
   "title": "New Book Title", // Put if only you want to update
-  "description": "New Book Description", // Put if only you want to update
+  "summary": "New Book Summary", // Put if only you want to update
+  "coverImage": "Path or URL to cover image",
   "authorId": "1", // Put if only you want to update
-  "publisherId": "1", // Put if only you want to update
   "category": [
     // Put if only you want to update
     {
@@ -95,7 +95,7 @@ Request Body:
   "pages": 350, // Put if only you want to update
   "language": "English", // Put if only you want to update
   "publishedDate": "2023-10-01", // Put if only you want to update
-  "status": "AVALIABLE" // AVALIABLE, BORROWED, LOST, DAMAGED - Put if only you want to update
+  "status": "AVAILABLE" // AVAILABLE, BORROWED, LOST, DAMAGED - Put if only you want to update
 }
 ```
 
@@ -107,9 +107,9 @@ Response success:
   "data": {
     "id": "1",
     "title": "New Book Title",
-    "description": "New Book Description",
+    "summary": "New Book Summary",
+    "coverImage": "Path or URL to cover image",
     "authorId": "1",
-    "publisherId": "1",
     "category": [
       {
         "id": "1",
@@ -120,7 +120,7 @@ Response success:
     "pages": 350,
     "language": "English",
     "publishedDate": "2023-10-01",
-    "status": "AVALIABLE"
+    "status": "AVAILABLE"
   }
 }
 ```
@@ -146,9 +146,9 @@ Response success:
   "data": {
     "id": "1",
     "title": "Book Title",
-    "description": "Book Description",
+    "summary": "Book Summary",
+    "coverImage": "Path or URL to cover image",
     "authorId": "1",
-    "publisherId": "1",
     "category": [
       {
         "id": "1",
@@ -162,7 +162,7 @@ Response success:
     "pages": 300,
     "language": "English",
     "publishedDate": "2023-10-01",
-    "status": "AVALIABLE"
+    "status": "AVAILABLE"
   }
 }
 ```
@@ -195,9 +195,9 @@ Response success:
     {
       "id": "1",
       "title": "Book Title",
-      "description": "Book Description",
+      "summary": "Book Summary",
+      "coverImage": "Path or URL to cover image",
       "authorId": "1",
-      "publisherId": "1",
       "category": [
         {
           "id": "1",
@@ -211,14 +211,14 @@ Response success:
       "pages": 300,
       "language": "English",
       "publishedDate": "2023-10-01",
-      "status": "AVALIABLE"
+      "status": "AVAILABLE"
     },
     {
       "id": "2",
       "title": "Another Book Title",
-      "description": "Another Book Description",
+      "summary": "Another Book Summary",
+      "coverImage": "Path or URL to cover image",
       "authorId": "2",
-      "publisherId": "2",
       "category": [
         {
           "id": "3",
