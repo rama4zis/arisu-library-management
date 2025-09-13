@@ -3,6 +3,7 @@ package com.arisu_library.arisu_library_management.model.request;
 import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record ProfileRequestRecord(
     String id,
@@ -12,7 +13,7 @@ public record ProfileRequestRecord(
 
     String lastName,
 
-    @NotBlank(message = "Date of birth is required")
+    @NotNull(message = "Date of birth is required")
     LocalDate dob,
 
     @NotBlank(message = "Address is required")

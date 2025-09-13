@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +33,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void registerUser(UserRequestRecord req) {
+    public User registerUser(UserRequestRecord req) {
         validationService.validate(req);
 
         if (userRepository.existsByUsername(req.username())) {
@@ -45,14 +47,22 @@ public class UserServiceImpl implements UserService {
         User user = userMapper.requestToEntity(req);
         user.setPassword(passwordEncoder.encode(req.password()));
         userRepository.save(user);
+        return user;
     }
 
     @Override
-    public void editUser(UserRequestRecord req) {
+    public User editUser(UserRequestRecord req) {
         validationService.validate(req);
 
         User user = userRepository.findById(req.id())
                 .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        // Only allow users to edit their own profile unless they are ADMIN
+        if (!username.equals(user.getUsername()) && !auth.getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
+            throw new RuntimeException("You are not allowed to edit this user");
+        }
 
         if (!user.getUsername().equals(req.username()) && userRepository.existsByUsername(req.username())) {
             throw new RuntimeException("Username already exists");
@@ -71,6 +81,7 @@ public class UserServiceImpl implements UserService {
         user.setRole(req.role());
 
         userRepository.save(user);
+        return user;
     }
 
     @Override
