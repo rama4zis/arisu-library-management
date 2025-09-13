@@ -4,7 +4,6 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.arisu_library.arisu_library_management.entity.Profile;
 import com.arisu_library.arisu_library_management.model.app.SimpleMap;
@@ -25,8 +24,7 @@ public class ProfileServiceImpl implements ProfileService {
     private final ValidationService validationService;
 
     @Override
-    @Transactional
-    public void editProfile(ProfileRequestRecord req) {
+    public Profile editProfile(ProfileRequestRecord req) {
         validationService.validate(req);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -60,7 +58,7 @@ public class ProfileServiceImpl implements ProfileService {
         target.setCity(req.city());
         target.setPhone(req.phone());
 
-        profileRepository.save(target);
+        return profileRepository.save(target);
     }
 
     @Override
