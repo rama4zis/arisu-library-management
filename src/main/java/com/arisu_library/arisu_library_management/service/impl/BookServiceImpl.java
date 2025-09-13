@@ -122,17 +122,17 @@ public class BookServiceImpl implements BookService {
     private SimpleMap toMap(Book b) {
         Author author = this.authorRepository.findById(b.getAuthor().getId()).orElse(null);
         SimpleMap authorMap = SimpleMap.createMap()
-                .add("id", author != null ? author.getId() : null)
-                .add("name", author != null ? author.getName() : null)
-                .add("biography", author != null ? author.getBiography() : null)
-                .add("dob", author != null ? author.getDob() : null)
-                .add("country", author != null ? author.getCountry() : null)
-                .add("website", author != null ? author.getWebsite() : null);
+                .add("id", author.getId())
+                .add("name", author.getName())
+                .add("biography", author.getBiography())
+                .add("dob", author.getDob())
+                .add("country", author.getCountry())
+                .add("website", author.getWebsite());
         Category category = this.categoryRepository.findById(b.getCategory().getId()).orElse(null);
         SimpleMap categoryMap = SimpleMap.createMap()
-                .add("id", category != null ? category.getId() : null)
-                .add("name", category != null ? category.getName() : null)
-                .add("description", category != null ? category.getDescription() : null);
+                .add("id", category.getId())
+                .add("name", category.getName())
+                .add("description", category.getDescription());
         return SimpleMap.createMap()
                 .add("id", b.getId())
                 .add("title", b.getTitle())

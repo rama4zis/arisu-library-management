@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.arisu_library.arisu_library_management.entity.Author;
 import com.arisu_library.arisu_library_management.model.app.SimpleMap;
@@ -23,7 +22,6 @@ public class AuthorServiceImpl implements AuthorService {
     private final ValidationService validationService;
 
     @Override
-    @Transactional
     public SimpleMap create(AuthorRequestRecord req) {
         validationService.validate(req);
         var entity = Author.builder()
@@ -38,7 +36,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional
     public SimpleMap update(AuthorRequestRecord req) {
         validationService.validate(req);
         var entity = authorRepository.findById(req.id())
@@ -54,7 +51,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Page<SimpleMap> findAll(String name, String country, Pageable pageable) {
         Specification<Author> spec = (root, q, cb) -> null;
         if (name != null && !name.isBlank()) {
@@ -67,7 +63,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public SimpleMap findById(String id) {
         var entity = authorRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Author not found"));
@@ -75,7 +70,6 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Override
-    @Transactional
     public void deleteById(String id) {
         if (!authorRepository.existsById(id)) {
             throw new RuntimeException("Author not found");
