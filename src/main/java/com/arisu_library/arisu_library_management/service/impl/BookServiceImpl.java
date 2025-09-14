@@ -4,6 +4,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.arisu_library.arisu_library_management.entity.Author;
 import com.arisu_library.arisu_library_management.entity.Book;
@@ -15,6 +16,7 @@ import com.arisu_library.arisu_library_management.repository.AuthorRepository;
 import com.arisu_library.arisu_library_management.repository.BookRepository;
 import com.arisu_library.arisu_library_management.repository.CategoryRepository;
 import com.arisu_library.arisu_library_management.service.BookService;
+import com.arisu_library.arisu_library_management.service.FileService;
 import com.arisu_library.arisu_library_management.service.ValidationService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,10 +29,17 @@ public class BookServiceImpl implements BookService {
     private final AuthorRepository authorRepository;
     private final CategoryRepository categoryRepository;
     private final ValidationService validationService;
+    private final FileService fileService;
 
     @Override
-    public SimpleMap create(BookRequestRecord req) {
+    public SimpleMap create(BookRequestRecord req, MultipartFile coverImage) {
         validationService.validate(req);
+
+        // Check if book name already exists
+        Boolean existingBook = bookRepository.existsByTitleAndAuthor_Id(req.title(), req.authorId());
+        if (existingBook) {
+            throw new RuntimeException("Book title already exists");
+        }
 
         Author author = authorRepository.findById(req.authorId())
                 .orElseThrow(() -> new RuntimeException("Author not found"));
@@ -39,11 +48,17 @@ public class BookServiceImpl implements BookService {
             category = categoryRepository.findById(req.categoryId())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
         }
+        String fileName = req.title().trim().toLowerCase()+ "_cover_image";
+
+        String pathCoverImage = null;
+        if (coverImage != null) {
+            pathCoverImage = fileService.uploadFile(fileName, coverImage);
+        }
 
         var entity = Book.builder()
                 .title(req.title())
                 .summary(req.summary())
-                .coverImage(req.coverImage())
+                .coverImage(pathCoverImage)
                 .author(author)
                 .category(category)
                 .pages(req.pages())
@@ -56,8 +71,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public SimpleMap update(BookRequestRecord req) {
+    public SimpleMap update(BookRequestRecord req, MultipartFile coverImage) {
         validationService.validate(req);
+
+        Boolean existingBook = bookRepository.existsByTitleAndAuthor_Id(req.title(), req.authorId());
+        Book currentBook = bookRepository.findById(req.id())
+                .orElseThrow(() -> new RuntimeException("Book not found"));
+        if (existingBook && !currentBook.getId().equals(req.id())) {
+            throw new RuntimeException("Book title already exists");
+        }
+
         var entity = bookRepository.findById(req.id())
                 .orElseThrow(() -> new RuntimeException("Book not found"));
 
@@ -68,10 +91,16 @@ public class BookServiceImpl implements BookService {
             category = categoryRepository.findById(req.categoryId())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
         }
+        String fileName = req.title().trim().toLowerCase()+ "_cover_image";
+
+        String pathCoverImage = null;
+        if (coverImage != null) {
+            pathCoverImage = fileService.uploadFile(fileName, coverImage);
+        }
 
         entity.setTitle(req.title());
         entity.setSummary(req.summary());
-        entity.setCoverImage(req.coverImage());
+        entity.setCoverImage(pathCoverImage);
         entity.setAuthor(author);
         entity.setCategory(category);
         entity.setPages(req.pages());

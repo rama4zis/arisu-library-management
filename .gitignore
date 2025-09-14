@@ -36,3 +36,4 @@ logs/
 
 # Dev Settings
 **/development/application.yml
+library-uploads/
