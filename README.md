@@ -18,8 +18,10 @@ flowchart TD
 	F2 --> Z
 	F3 --> Z
 
-	E -->|USER| G["Manage Profile"]
-	G --> Z
+	E --> US["USER"]
+
+	US --> G["Manage Profile"] --> Z
+	US --> H["Book Inventory"]
 
 	B -->|Browse / Search| H["Book Inventory"]
 	F3 --> H
